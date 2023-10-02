@@ -3,5 +3,5 @@ import py_compile
 import os
 
 file = os.environ.get("PYFILE")
-py_compile.compile(file,file+'c')
+py_compile.compile(file, file + "c")
 print(f"Compiling {file} ...")
