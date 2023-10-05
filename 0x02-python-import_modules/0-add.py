@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 if __name__ == "__main__":
-    import add_0 as a
+    import add_0 as prog
 
     a = 1
     b = 2
-    print("{} + {} = {}".format(a, b, a.add(a, b)))
+    print("{} + {} = {}".format(a, b, prog.add(a, b)))
