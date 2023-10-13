@@ -9,7 +9,6 @@ void print_python_bytes(PyObject *p);
  */
 void print_python_list(PyObject *p)
 {
-	// Check if p is a valid PyListObject
 	if (!PyList_Check(p))
 	{
 		fprintf(stderr, "[ERROR] Invalid List Object\n");
@@ -26,6 +25,7 @@ void print_python_list(PyObject *p)
 	for (Py_ssize_t i = 0; i < size; i++)
 	{
 		PyObject *item = PyList_GetItem(p, i);
+
 		printf("Element %ld: %s\n", i, Py_TYPE(item)->tp_name);
 		if (strcmp(Py_TYPE(item)->tp_name, "bytes") == 0)
 		{
@@ -40,7 +40,6 @@ void print_python_list(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
-	// Check if p is a valid PyBytesObject
 	printf("[.] bytes object info\n");
 	if (!PyBytes_Check(p))
 	{
