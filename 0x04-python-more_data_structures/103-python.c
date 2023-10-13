@@ -9,24 +9,24 @@ void print_python_bytes(PyObject *p);
  */
 void print_python_list(PyObject *p)
 {
+	int size, alloc, i;
+	const char *item;
 	PyListObject *list = (PyListObject *)p;
-	Py_ssize_t size = ((PyVarObject *)list)->ob_size;
-	Py_ssize_t allocated = list->allocated;
+	PyVarObject *var = (PyVarObject *)p;
+
+	size = var->ob_size;
+	alloc = list->allocated;
 
 	printf("[*] Python list info\n");
-	printf("[*] Size of the Python List = %ld\n", size);
-	printf("[*] Allocated = %ld\n", allocated);
+	printf("[*] Size of the Python List = %d\n", size);
+	printf("[*] Allocated = %d\n", alloc);
 
-	for (Py_ssize_t i = 0; i < size; i++)
+	for (i = 0; i < size; i++)
 	{
-		PyObject *item = list->ob_item[i];
-		const char *item_type = list->ob_item[i]->ob_type->tp_name;
-
-		printf("Element %ld: %s\n", i, item_type);
-		if (strcmp(item_type, "bytes") == 0)
-		{
-			print_python_bytes(item);
-		}
+		item = list->ob_item[i]->ob_type->tp_name;
+		printf("Element %d: %s\n", i, item);
+		if (strcmp(item, "bytes") == 0)
+			print_python_bytes(list->ob_item[i]);
 	}
 }
 
@@ -36,17 +36,17 @@ void print_python_list(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
+	unsigned char i, size;
+	PyBytesObject *data = (PyBytesObject *)p;
+
 	printf("[.] bytes object info\n");
-	if (!PyBytes_Check(p))
+	if (strcmp(p->ob_type->tp_name, "bytes") != 0)
 	{
-		fprintf(stderr, "  [ERROR] Invalid Bytes Object\n");
+		printf("  [ERROR] Invalid Bytes Object\n");
 		return;
 	}
 
-	Py_ssize_t size = (((PyVarObject *)p)->ob_size);
-	PyBytesObject *data = (PyBytesObject *)p;
-
-	printf("  Size: %ld\n", size);
+	printf("  size: %ld\n", ((PyVarObject *)p)->ob_size);
 	printf("  trying string: %s\n", data->ob_sval);
 
 	if (((PyVarObject *)p)->ob_size > 10)
@@ -54,8 +54,8 @@ void print_python_bytes(PyObject *p)
 	else
 		size = ((PyVarObject *)p)->ob_size + 1;
 
-	printf("  first %ld bytes: ", size);
-	for (Py_ssize_t i = 0; i < size; i++)
+	printf("  first %d bytes: ", size);
+	for (i = 0; i < size; i++)
 	{
 		printf("%02hhx", data->ob_sval[i]);
 		if (i == (size - 1))
