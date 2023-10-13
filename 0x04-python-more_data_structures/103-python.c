@@ -9,12 +9,6 @@ void print_python_bytes(PyObject *p);
  */
 void print_python_list(PyObject *p)
 {
-	if (!PyList_Check(p))
-	{
-		fprintf(stderr, "[ERROR] Invalid List Object\n");
-		return;
-	}
-
 	PyListObject *list = (PyListObject *)p;
 	Py_ssize_t size = ((PyVarObject *)list)->ob_size;
 	Py_ssize_t allocated = list->allocated;
@@ -55,14 +49,18 @@ void print_python_bytes(PyObject *p)
 	printf("  Size: %ld\n", size);
 	printf("  trying string: %s\n", data->ob_sval);
 
-	printf("  first %ld bytes: ", (size < 10) ? size + 1 : 10);
-	for (Py_ssize_t i = 0; i < 10 && i < size; i++)
+	if (((PyVarObject *)p)->ob_size > 10)
+		size = 10;
+	else
+		size = ((PyVarObject *)p)->ob_size + 1;
+
+	printf("  first %ld bytes: ", size);
+	for (Py_ssize_t i = 0; i < size; i++)
 	{
 		printf("%02hhx", data->ob_sval[i]);
-		if (i < 9 && i < size - 1)
-		{
+		if (i == (size - 1))
+			printf("\n");
+		else
 			printf(" ");
-		}
 	}
-	printf("\n");
 }
