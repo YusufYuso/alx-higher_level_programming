@@ -9,6 +9,17 @@ calculating its area, and printing the square pattern.
 
 
 class Square:
+    """
+    A class representing a square.
+
+    Attributes:
+        __size (int): The size of the square.
+
+    Methods:
+        area(): Calculate the area of the square.
+        my_print(): Print a representation of the square pattern.
+    """
+
     def __init__(self, size=0):
         """
         Initializes a Square instance with a specified size.
