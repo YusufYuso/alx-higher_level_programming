@@ -2,7 +2,8 @@
 """
 Define a class Square.
 
-This class represents a square and includes methods for setting and getting its size, calculating its area, and printing the square pattern.
+This class represents a square and includes methods for setting and getting its size,
+calculating its area, and printing the square pattern.
 """
 
 
