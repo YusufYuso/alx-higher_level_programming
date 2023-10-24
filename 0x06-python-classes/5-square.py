@@ -2,7 +2,8 @@
 """
 Define a class Square.
 
-This class represents a square and includes methods for setting and getting its size,
+This class represents a square
+and includes methods for setting and getting its size,
 calculating its area, and printing the square pattern.
 """
 
@@ -62,7 +63,9 @@ class Square:
         """
         Print a representation of the square pattern.
 
-        If the size is 0, an empty line is printed. Otherwise, the square pattern is printed.
+        If the size is 0,
+        an empty line is printed.
+        Otherwise, the square pattern is printed.
         """
         if self.__size == 0:
             print()
