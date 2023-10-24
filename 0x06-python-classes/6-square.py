@@ -38,8 +38,7 @@ class Square:
         if (
             not isinstance(value, tuple)
             or len(value) != 2
-            or not all(isinstance(x, int) for x in value)
-            or not all(x >= 0 for x in value)
+            or not all(isinstance(x, int) and x >= 0 for x in value)
         ):
             raise TypeError("position must be a tuple of 2 positive integers")
         self.__position = value
@@ -52,7 +51,6 @@ class Square:
         """Print the square with the # character."""
         if self.__size == 0:
             print()
-            return
         else:
             for i in range(self.__position[1]):
                 print()
