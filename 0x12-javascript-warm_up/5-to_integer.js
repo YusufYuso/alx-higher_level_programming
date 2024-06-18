@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-//a script that prints My number: <first argument converted in integer> if the first argument can be converted to an integer
+// a script that prints My number: <first argument converted in integer> if the first argument can be converted to an integer
 const args = process.argv.slice(2);
 
 const num = parseInt(args[0], 10);
