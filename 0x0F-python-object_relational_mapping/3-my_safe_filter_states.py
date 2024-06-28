@@ -18,11 +18,11 @@ if __name__ == '__main__':
     from the database.
     """
 
-    db = MySQLdb.connect(host="localhost", user=argv[1], port=3306,
+    connection = MySQLdb.connect(host="localhost", user=argv[1], port=3306,
                          passwd=argv[2], db=argv[3])
 
-    with db.cursor() as cur:
-        cur.execute("""
+    with connection.cursor() as cursor:
+        cursor.execute("""
             SELECT
                 *
             FROM
@@ -35,8 +35,13 @@ if __name__ == '__main__':
             'name': argv[4]
         })
 
-        rows = cur.fetchall()
+        states = cursor.fetchall()
 
-    if rows is not None:
-        for row in rows:
-            print(row)
+    if states is not None:
+        for state in states:
+            print(state)
+        
+    if cursor:
+        cursor.close()
+    if connection:
+        connection.close()
